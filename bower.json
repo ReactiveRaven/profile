@@ -1,0 +1,24 @@
+{
+  "name": "profile",
+  "version": "0.0.0",
+  "homepage": "https://github.com/ReactiveRaven/profile",
+  "authors": [
+    "ReactiveRaven <reactiveraven@gmail.com>"
+  ],
+  "description": "personal profile for david godfrey",
+  "main": "n/a",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.1.0",
+    "bootswatch": "~3.1.0"
+  }
+}

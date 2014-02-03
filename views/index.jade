@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1 David Godfrey
+  p Developer at large
+  ul
+    - positions.forEach(function (item) {
+      li #{item.title} at #{item.company.name}
+    - })

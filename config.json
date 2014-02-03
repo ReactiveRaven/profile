@@ -1,0 +1,12 @@
+{
+    "oauth": {
+        "linkedin": {
+            "token": {
+                "oauth_token": "8b8306b3-efa2-4f2a-b5fb-a08f1d0e84e1",
+                "oauth_token_secret": "db9f038d-9750-4942-aa81-e5d7db5ea89e"
+            },
+            "key": "77h447dmmjb5hc",
+            "secret": "ojOXnD2ejU4SfR0L"
+        }
+    }
+}
