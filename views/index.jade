@@ -1,15 +1,27 @@
 extends layout
 
+  
 block content
+  - currentYear = (new Date).getFullYear()
+  - earliestYear = (new Date).getFullYear()
   h1 David Godfrey
   p Developer at large
-  ul
+  p You came from #{request.headers.referer}
+  ul.linkedin
     - positions.forEach(function (item) {
       if item.startDate && item.endDate
-        li #{item.title} at #{item.company.name} from #{item.startDate.year} to #{item.endDate.year} - #{(item.endDate.year * 12 + item.endDate.month) - (item.startDate.year * 12 + item.startDate.month)} months
+        li.position
+          span.title#{item.title} at #{item.company.name} from #{item.startDate.year} to #{item.endDate.year} - #{(item.endDate.year * 12 + item.endDate.month) - (item.startDate.year * 12 + item.startDate.month)} months
       else if item.startDate
         if item.isCurrent
-          li #{item.title} at #{item.company.name} from #{item.startDate.year} - #{((new Date).getFullYear() * 12 + (new Date).getMonth() + 1) - (item.startDate.year * 12 + item.startDate.month)} months
+          li #{item.title} at #{item.company.name} from #{item.startDate.year} to now - #{((new Date).getFullYear() * 12 + (new Date).getMonth() + 1) - (item.startDate.year * 12 + item.startDate.month)} months
         else
           li #{item.title} at #{item.company.name} from #{item.startDate.year}
+      if item.startDate && item.startDate.year < earliestYear
+        - earliestYear = item.startDate.year
+    - })
+  p #{ parseInt(currentYear, 10) - parseInt(earliestYear, 10) } years total.
+  ul.linkedi
+    - skills.reverse().forEach(function (item) {
+      li #{item.skill.name}
     - })

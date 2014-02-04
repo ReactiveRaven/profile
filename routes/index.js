@@ -3,11 +3,12 @@
  */
 
 var linkedin = require('./linkedin')
+var q = require('q');
 
 exports.linkedin = linkedin;
 
 exports.index = function(req, res){
-    linkedin.promiseGetPositions().then(function (response) {
-        res.render('index', { title: 'Express', positions: response.positions.values });
-    })
+    linkedin.promiseGetSkillsAndPositions().then(function (response) {
+        res.render('index', { title: 'Express', positions: response.positions.values, skills: response.skills.values, request: req });
+    });
 };

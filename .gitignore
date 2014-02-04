@@ -18,3 +18,4 @@ public/bower
 .nide
 .npmignore
 nbproject
+sensitive/

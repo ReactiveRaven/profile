@@ -8,6 +8,10 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var fs = require('fs');
+var https = require('https');
+var privateKey  = fs.readFileSync('sensitive/ssl/74222061-localhost_3000.key', 'utf8');
+var certificate = fs.readFileSync('sensitive/ssl/74222061-localhost_3000.cert', 'utf8');
 
 var app = express();
 
@@ -35,6 +39,17 @@ app.get('/', routes.index);
 
 app.get('/positions', routes.linkedin.routes.positions);
 
+app.get('/profile', routes.linkedin.routes.profile);
+
+app.get('/skills', routes.linkedin.routes.skills);
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
+});
+
+var sslPort = parseInt(app.get('port'), 10) + 353;
+var credentials = {key: privateKey, cert: certificate};
+
+httpsServer = https.createServer(credentials, app).listen(sslPort, function () {
+  console.log('Express SSL server listening on port ' + sslPort);
 });
