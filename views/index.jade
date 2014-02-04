@@ -5,5 +5,11 @@ block content
   p Developer at large
   ul
     - positions.forEach(function (item) {
-      li #{item.title} at #{item.company.name}
+      if item.startDate && item.endDate
+        li #{item.title} at #{item.company.name} from #{item.startDate.year} to #{item.endDate.year} - #{(item.endDate.year * 12 + item.endDate.month) - (item.startDate.year * 12 + item.startDate.month)} months
+      else if item.startDate
+        if item.isCurrent
+          li #{item.title} at #{item.company.name} from #{item.startDate.year} - #{((new Date).getFullYear() * 12 + (new Date).getMonth() + 1) - (item.startDate.year * 12 + item.startDate.month)} months
+        else
+          li #{item.title} at #{item.company.name} from #{item.startDate.year}
     - })

@@ -14,3 +14,7 @@ results
 npm-debug.log
 node_modules
 public/bower
+/nbproject/private/
+.nide
+.npmignore
+nbproject
