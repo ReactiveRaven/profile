@@ -16,3 +16,7 @@ node_modules
 .DS_Store
 public/bower
 .nide
+/nbproject/private/
+.npmignore
+nbproject
+sensitive/

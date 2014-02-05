@@ -11,6 +11,7 @@
     "less-middleware": "*",
     "linkedin-js": "~0.1.4",
     "angular": "~1.2.10",
-    "q": "~1.0.0"
+    "q": "~1.0.0",
+    "github": "~0.1.13"
   }
 }
