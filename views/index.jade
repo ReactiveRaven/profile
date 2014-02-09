@@ -21,7 +21,11 @@ block content
         - earliestYear = item.startDate.year
     - })
   p #{ parseInt(currentYear, 10) - parseInt(earliestYear, 10) } years total.
-  ul.linkedi
+  ul.linkedin
     - skills.reverse().forEach(function (item) {
-      li #{item.skill.name}
+      if item.reddit
+        li #{item.skill.name} : #{item.reddit.subscribers}
+      else
+        li #{item.skill.name}
     - })
+  script(type='text/javascript') !{JSON.stringify(skills, null, 4)}

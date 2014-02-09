@@ -3,7 +3,7 @@ var q = require('q');
 var dumbCache = require("../utils/dumbcache").dumbcache;
 var linkedin_client = require('linkedin-js')(config.oauth.linkedin.key, config.oauth.linkedin.secret, 'http://localhost:3000/auth');
 
-var promiseGetPositions = dumbCache(function () {
+var promiseGetPositions = function () {
     var deferred = q.defer();
     linkedin_client.apiCall('GET', '/people/~:(positions)',
         {
@@ -17,7 +17,7 @@ var promiseGetPositions = dumbCache(function () {
         }
     );
     return deferred.promise;
-}, 3600);
+};
 
 var promiseGetProfile = dumbCache(function () {
     var deferred = q.defer();
@@ -35,7 +35,7 @@ var promiseGetProfile = dumbCache(function () {
     return deferred.promise;
 }, 3600);
 
-var promiseGetSkills = dumbCache(function () {
+var promiseGetSkills = function () {
     var deferred = q.defer();
     linkedin_client.apiCall('GET', '/people/~:(skills)',
         {
@@ -49,9 +49,9 @@ var promiseGetSkills = dumbCache(function () {
         }
     );
     return deferred.promise;
-}, 3600);
+};
 
-var promiseGetSkillsAndPositions = dumbCache(function () {
+var promiseGetSkillsAndPositions = function () {
     var deferred = q.defer();
     linkedin_client.apiCall('GET', '/people/~:(skills,positions)',
         {
@@ -65,30 +65,9 @@ var promiseGetSkillsAndPositions = dumbCache(function () {
         }
     );
     return deferred.promise;
-}, 3600);
+};
 
 exports.promiseGetPositions = promiseGetPositions;
 exports.promiseGetSkills = promiseGetSkills;
 exports.promiseGetProfile = promiseGetProfile;
 exports.promiseGetSkillsAndPositions = promiseGetSkillsAndPositions;
-
-exports.routes = {};
-
-exports.routes.positions = function (req, res) {
-    promiseGetPositions().then(function (result) {
-        res.set('Content-Type', 'application/json');
-        res.send(JSON.stringify(result));
-    });
-};
-exports.routes.skills = function (req, res) {
-    promiseGetSkills().then(function (result) {
-        res.set('Content-Type', 'application/json');
-        res.send(JSON.stringify(result));
-    });
-};
-exports.routes.profile = function (req, res) {
-    promiseGetProfile().then(function (result) {
-        res.set('Content-Type', 'application/json');
-        res.send(JSON.stringify(result));
-    });
-};

@@ -35,12 +35,6 @@ if ('development' === app.get('env')) {
 
 app.get('/', routes.index);
 
-app.get('/positions', routes.linkedin.routes.positions);
-
-app.get('/profile', routes.linkedin.routes.profile);
-
-app.get('/skills', routes.linkedin.routes.skills);
-
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

@@ -5,6 +5,8 @@ html
     link(rel='stylesheet', href='/bower/bootswatch/journal/bootstrap.min.css')
     link(rel='stylesheet', href='/bower/font-awesome/css/font-awesome.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    style.
+      #map-canvas { width: 500; height: 500; background: #FF00FF }
   body
     div(class='container')
       block content
@@ -14,4 +16,6 @@ html
     script(src='/bower/bootstrap/dist/js/bootstrap.min.js')
     script(src='/javascripts/js.js')
     script.
-      google.maps.event.addDomListener(window, 'load', function () { new google.maps.Map(document.getElementById('map-canvas'), { center: new google.maps.LatLng(-34.397, 150.644), zoom: 8 }); });
+      google.maps.event.addDomListener(window, 'load', function () { 
+      new google.maps.Map(document.getElementById('map-canvas'), { center: new google.maps.LatLng(-34.397, 150.644), zoom: 8 }); 
+      });
