@@ -6,11 +6,14 @@ var linkedin = require('./linkedin')
 var q = require('q');
 var reddit = require('./reddit');
 var dumbCache = require("../utils/dumbcache").dumbcache;
+var extend = require('extend');
+var eighttracks = require('./8tracks');
 
 exports.linkedin = linkedin;
 
 var dumbCachedGetSkillsAndPositions = dumbCache(linkedin.promiseGetSkillsAndPositions, 3600, "linkedin.promiseGetSkillsAndPositions");
 var dumbCachedGetAbout = dumbCache(reddit.promiseGetAbout, 3600, "reddit.promiseGetAbout");
+var dumbCachedGetListened = dumbCache(eighttracks.promiseGetListened, 3600, "8tracks.promiseGetListened");
 
 exports.index = function(req, res){
     dumbCachedGetSkillsAndPositions().then(function (response) {
@@ -26,11 +29,17 @@ exports.index = function(req, res){
                     privateSkill.reddit = answer.data;
                     return answer;
                 });
-            })()
+            })();
             aboutDeferreds.push(promise);
         }
+        var listened = null;
+        aboutDeferreds.push(dumbCachedGetListened().then(function (ak47) {
+            listened = ak47;
+        }));
         q.allSettled(aboutDeferreds).then(function (results) {
-            res.render('index', { title: 'Express', positions: response.positions.values, skills: response.skills.values, request: req });
+            var arguments = { title: 'Express', positions: response.positions.values, skills: response.skills.values, request: req, listened: listened, requests: results };
+            arguments = extend(true, {}, arguments);
+            res.render('index', arguments);
         });
     }, function (error) {
         console.log("ERROR: " + JSON.stringify(error));

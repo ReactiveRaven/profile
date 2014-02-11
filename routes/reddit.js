@@ -1,4 +1,4 @@
-var config = require("../config.json");
+var config = require("../sensitive/config.json");
 var q = require('q');
 var request = require('request');
 var dumbCache = require("../utils/dumbcache").dumbcache;

@@ -1,4 +1,4 @@
-var config = require("../config.json");
+var config = require("../sensitive/config.json");
 var q = require('q');
 var dumbCache = require("../utils/dumbcache").dumbcache;
 var linkedin_client = require('linkedin-js')(config.oauth.linkedin.key, config.oauth.linkedin.secret, 'http://localhost:3000/auth');

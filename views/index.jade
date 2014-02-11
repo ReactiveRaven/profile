@@ -28,4 +28,14 @@ block content
       else
         li #{item.skill.name}
     - })
-  script(type='text/javascript') !{JSON.stringify(skills, null, 4)}
+  ul.8tracks
+    - listened.forEach(function (item) {
+     li
+       a(href='http://8tracks.com' + item.path, title=item.name)
+         img(src=item.cover_urls.sq100)
+    - })
+  script(type='text/javascript').
+    var skills = !{JSON.stringify(skills, null, 4)};
+    var positions = !{JSON.stringify(positions, null, 4)};
+    var listened = !{JSON.stringify(listened, null, 4)};
+    var results = !{JSON.stringify(requests, null, 4)};
