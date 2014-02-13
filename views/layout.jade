@@ -4,6 +4,7 @@ html
     title= title
     link(rel='stylesheet', href='/bower/bootswatch/journal/bootstrap.min.css')
     link(rel='stylesheet', href='/bower/font-awesome/css/font-awesome.min.css')
+    link(rel='stylesheet', href='/bower/jquery.tablesorter/css/theme.default.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     style.
       #map-canvas { width: 500; height: 500; background: #FF00FF }
@@ -14,8 +15,10 @@ html
     script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDv0T21zpM0eVk1qmA3k2gyq4ns8n8k-Z8&sensor=false')
     script(src='/bower/jquery/jquery.min.js')
     script(src='/bower/bootstrap/dist/js/bootstrap.min.js')
+    script(src='/bower/jquery.tablesorter/js/jquery.tablesorter.min.js')
     script(src='/javascripts/js.js')
     script.
       google.maps.event.addDomListener(window, 'load', function () { 
       new google.maps.Map(document.getElementById('map-canvas'), { center: new google.maps.LatLng(-34.397, 150.644), zoom: 8 }); 
       });
+    block js

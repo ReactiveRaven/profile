@@ -21,6 +21,22 @@ block content
         - earliestYear = item.startDate.year
     - })
   p #{ parseInt(currentYear, 10) - parseInt(earliestYear, 10) } years total.
+  table
+    thead
+      tr
+        th Skill
+        th Linkedin Order
+        th Reddit Popularity
+    tbody
+    - skills.forEach(function (item, index) {
+      tr
+        td #{item.skill.name}
+        td #{index + 1}
+        if item.reddit
+          td #{item.reddit.subscribers}
+        else
+          td -
+    - });
   ul.linkedin
     - skills.reverse().forEach(function (item) {
       if item.reddit
@@ -34,8 +50,13 @@ block content
        a(href='http://8tracks.com' + item.path, title=item.name)
          img(src=item.cover_urls.sq100)
     - })
-  script(type='text/javascript').
+    
+block js
+  script.
     var skills = !{JSON.stringify(skills, null, 4)};
     var positions = !{JSON.stringify(positions, null, 4)};
     var listened = !{JSON.stringify(listened, null, 4)};
     var results = !{JSON.stringify(requests, null, 4)};
+    $(function(){
+    $("table").tablesorter();
+    });
