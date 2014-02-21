@@ -6,21 +6,6 @@ block content
   - earliestYear = (new Date).getFullYear()
   h1 David Godfrey
   p Developer at large
-  p You came from #{request.headers.referer}
-  ul.linkedin
-    - positions.forEach(function (item) {
-      if item.startDate && item.endDate
-        li.position
-          span.title #{item.title} at #{item.company.name} from #{item.startDate.year} to #{item.endDate.year} - #{(item.endDate.year * 12 + item.endDate.month) - (item.startDate.year * 12 + item.startDate.month)} months
-      else if item.startDate
-        if item.isCurrent
-          li #{item.title} at #{item.company.name} from #{item.startDate.year} to now - #{((new Date).getFullYear() * 12 + (new Date).getMonth() + 1) - (item.startDate.year * 12 + item.startDate.month)} months
-        else
-          li #{item.title} at #{item.company.name} from #{item.startDate.year}
-      if item.startDate && item.startDate.year < earliestYear
-        - earliestYear = item.startDate.year
-    - })
-  p #{ parseInt(currentYear, 10) - parseInt(earliestYear, 10) } years total.
   table
     thead
       tr
@@ -37,14 +22,25 @@ block content
           else
             td
       - });
+  if request.headers.referer
+    p You came from #{request.headers.referer}
   ul.linkedin
-    - skills.reverse().forEach(function (item) {
-      if item.reddit
-        li #{item.skill.name} : #{item.reddit.subscribers}
-      else
-        li #{item.skill.name}
+    - positions.forEach(function (item) {
+      if item.startDate && item.endDate
+        li.position
+          span.title #{item.title} at #{item.company.name} from #{item.startDate.year} to #{item.endDate.year} - #{(item.endDate.year * 12 + item.endDate.month) - (item.startDate.year * 12 + item.startDate.month)} months
+      else if item.startDate
+        if item.isCurrent
+          li.position #{item.title} at #{item.company.name} from #{item.startDate.year} to now - #{((new Date).getFullYear() * 12 + (new Date).getMonth() + 1) - (item.startDate.year * 12 + item.startDate.month)} months
+        else
+          li #{item.title} at #{item.company.name} from #{item.startDate.year}
+      if item.startDate && item.startDate.year < earliestYear
+        - earliestYear = item.startDate.year
+      if item.summary
+        div.markdown !{ md(item.summary) }
     - })
-  ul.8tracks
+  p Spanning #{ parseInt(currentYear, 10) - parseInt(earliestYear, 10) } years in total.
+  ul.eightTracks
     - listened.forEach(function (item) {
      li
        a(href='http://8tracks.com' + item.path, title=item.name)

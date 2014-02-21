@@ -8,7 +8,7 @@ var reddit = require('./reddit');
 var dumbCache = require("../utils/dumbcache").dumbcache;
 var extend = require('extend');
 var eighttracks = require('./8tracks');
-
+var md = require("node-markdown").Markdown;
 exports.linkedin = linkedin;
 
 var dumbCachedGetSkillsAndPositions = dumbCache(linkedin.promiseGetSkillsAndPositions, 3600, "linkedin.promiseGetSkillsAndPositions");
@@ -38,7 +38,7 @@ exports.index = function(req, res){
         }));
         q.allSettled(aboutDeferreds).then(function (results) {
             var arguments = { title: 'Express', positions: response.positions.values, skills: response.skills.values, request: req, listened: listened, requests: results };
-            arguments = extend(true, {}, arguments);
+            arguments = extend(true, {md: md}, arguments);
             res.render('index', arguments);
         });
     }, function (error) {

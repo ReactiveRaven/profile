@@ -10,6 +10,7 @@ var http = require('http');
 var path = require('path');
 var fs = require('fs');
 var https = require('https');
+var md = require("node-markdown").Markdown;
 
 var app = express();
 
