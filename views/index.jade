@@ -28,15 +28,15 @@ block content
         th Linkedin Order
         th Reddit Popularity
     tbody
-    - skills.forEach(function (item, index) {
-      tr
-        td #{item.skill.name}
-        td #{index + 1}
-        if item.reddit
-          td #{item.reddit.subscribers}
-        else
-          td -
-    - });
+      - skills.forEach(function (item, index) {
+        tr
+          td #{item.skill.name}
+          td #{index + 1}
+          if item.reddit
+            td #{item.reddit.subscribers}
+          else
+            td
+      - });
   ul.linkedin
     - skills.reverse().forEach(function (item) {
       if item.reddit
