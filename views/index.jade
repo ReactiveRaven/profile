@@ -6,24 +6,6 @@ block content
   - earliestYear = (new Date).getFullYear()
   h1 David Godfrey
   p Developer at large
-  if request.headers.referer
-    p You came from #{request.headers.referer}
-  h2 Employment History
-  ul.linkedin
-    - positions.forEach(function (item) {
-      if item.startDate && item.endDate
-        li.position
-          span.title #{item.title} at #{item.company.name} from #{item.startDate.year} to #{item.endDate.year} - #{(item.endDate.year * 12 + item.endDate.month) - (item.startDate.year * 12 + item.startDate.month)} months
-      else if item.startDate
-        if item.isCurrent
-          li #{item.title} at #{item.company.name} from #{item.startDate.year} to now - #{((new Date).getFullYear() * 12 + (new Date).getMonth() + 1) - (item.startDate.year * 12 + item.startDate.month)} months
-        else
-          li #{item.title} at #{item.company.name} from #{item.startDate.year}
-      if item.startDate && item.startDate.year < earliestYear
-        - earliestYear = item.startDate.year
-    - })
-  p #{ parseInt(currentYear, 10) - parseInt(earliestYear, 10) } years total.
-  h2 Skills
   table
     thead
       tr
@@ -31,17 +13,34 @@ block content
         th Linkedin Order
         th Reddit Popularity
     tbody
-    - skills.forEach(function (item, index) {
-      tr
-        td #{item.skill.name}
-        td #{index + 1}
-        if item.reddit
-          td #{item.reddit.subscribers}
+      - skills.forEach(function (item, index) {
+        tr
+          td #{item.skill.name}
+          td #{index + 1}
+          if item.reddit
+            td #{item.reddit.subscribers}
+          else
+            td
+      - });
+  if request.headers.referer
+    p You came from #{request.headers.referer}
+  ul.linkedin
+    - positions.forEach(function (item) {
+      if item.startDate && item.endDate
+        li.position
+          span.title #{item.title} at #{item.company.name} from #{item.startDate.year} to #{item.endDate.year} - #{(item.endDate.year * 12 + item.endDate.month) - (item.startDate.year * 12 + item.startDate.month)} months
+      else if item.startDate
+        if item.isCurrent
+          li.position #{item.title} at #{item.company.name} from #{item.startDate.year} to now - #{((new Date).getFullYear() * 12 + (new Date).getMonth() + 1) - (item.startDate.year * 12 + item.startDate.month)} months
         else
-          td -
-    - });
-  h2 Recent Playlists
-  ul.8tracks
+          li #{item.title} at #{item.company.name} from #{item.startDate.year}
+      if item.startDate && item.startDate.year < earliestYear
+        - earliestYear = item.startDate.year
+      if item.summary
+        div.markdown !{ md(item.summary) }
+    - })
+  p Spanning #{ parseInt(currentYear, 10) - parseInt(earliestYear, 10) } years in total.
+  ul.eightTracks
     - listened.forEach(function (item) {
      li
        a(href='http://8tracks.com' + item.path, title=item.name)
