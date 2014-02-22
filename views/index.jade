@@ -24,6 +24,7 @@ block content
       - });
   if request.headers.referer
     p You came from #{request.headers.referer}
+  h3 Employment History
   ul.linkedin
     - positions.forEach(function (item) {
       if item.startDate && item.endDate
@@ -40,6 +41,7 @@ block content
         div.markdown !{ md(item.summary) }
     - })
   p Spanning #{ parseInt(currentYear, 10) - parseInt(earliestYear, 10) } years in total.
+  h3 8tracks History
   ul.eightTracks
     - listened.forEach(function (item) {
      li
