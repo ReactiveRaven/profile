@@ -29,19 +29,33 @@ block content
     - positions.forEach(function (item) {
       if item.startDate && item.endDate
         li.position
-          span.title #{item.title} at #{item.company.name} from #{item.startDate.year} to #{item.endDate.year} - #{(item.endDate.year * 12 + item.endDate.month) - (item.startDate.year * 12 + item.startDate.month)} months
+          h4.title 
+            | #{item.title} 
+            small at 
+            | #{item.company.name} 
+            small from #{item.startDate.year} to #{item.endDate.year} - #{(item.endDate.year * 12 + item.endDate.month) - (item.startDate.year * 12 + item.startDate.month)} months
       else if item.startDate
         if item.isCurrent
-          li.position #{item.title} at #{item.company.name} from #{item.startDate.year} to now - #{((new Date).getFullYear() * 12 + (new Date).getMonth() + 1) - (item.startDate.year * 12 + item.startDate.month)} months
+          li.position
+            h4.title 
+              | #{item.title} 
+              small at 
+              | #{item.company.name} 
+              small from #{item.startDate.year} to present - #{((new Date).getFullYear() * 12 + (new Date).getMonth() + 1) - (item.startDate.year * 12 + item.startDate.month)} months
         else
-          li #{item.title} at #{item.company.name} from #{item.startDate.year}
+          li.position
+            h4.title
+              | #{item.title} 
+              small at 
+              | #{item.company.name} 
+              small from #{item.startDate.year}
       if item.startDate && item.startDate.year < earliestYear
         - earliestYear = item.startDate.year
       if item.summary
         div.markdown !{ md(item.summary) }
     - })
   p Spanning #{ parseInt(currentYear, 10) - parseInt(earliestYear, 10) } years in total.
-  h3 8tracks History
+  h3 8tracks listening History
   ul.eightTracks
     - listened.forEach(function (item) {
      li
